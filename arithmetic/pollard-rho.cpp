@@ -2,6 +2,9 @@
  *    author:  shubhamphpefy
  *    created: 17.11.2024 04:02:33
 **/
+
+// solution for https://open.kattis.com/contests/nasouth24d1open/problems/perfectsquares
+
 #include <algorithm>
 #include <array>
 #include <bitset>
