@@ -1,0 +1,217 @@
+// Problem C
+/**
+ *    author:  shubhamphpefy
+ *    created: 05.04.2025 20:49:28
+**/
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <chrono>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstring>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <set>
+#include <vector>
+#include <stack>
+
+using namespace std;
+
+#ifdef LOCAL
+#include "debug.h"
+#include "log.h"
+#else
+#define dbg(...) 42
+#define lg(...) 42
+#endif
+
+#define uid(a, b) uniform_int_distribution<int>(a, b)(rnd)
+ 
+// mt19937 rnd(239);
+mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
+
+#define ll long long
+#define ld long double
+#define mp make_pair
+#define f first
+#define s second
+
+#define yes cout << "YES" << endl
+#define no cout << "NO" << endl
+#define d(x) cout<<(x)<<
+#define d0(x) cout<<(x)<<" "
+#define d1(x) cout<<(x)<<endl
+#define d2(x,y) cout<<(x)<<" "<<(y)<<endl
+#define d3(x,y,z) cout<<(x)<<" "<<(y)<<" "<<(z)<<endl
+#define d4(a,b,c,d) cout<<(a)<<" "<<(b)<<" "<<(c)<<" "<<(d)<<endl
+#define d5(a,b,c,d,e) cout<<(a)<<" "<<(b)<<" "<<(c)<<" "<<(d)<<" "<<(e)<<endl
+#define d6(a,b,c,d,e,f) cout<<(a)<<" "<<(b)<<" "<<(c)<<" "<<(d)<<" "<<(e)<<" "<<(f)<<endl
+
+#define sz(x) int((x).size())
+#define bg(x) begin(x)
+#define all(x) bg(x), end(x)
+#define rall(x) x.rbegin(), x.rend()
+#define sor(x) sort(all(x))
+#define rsz resize
+#define ins insert
+#define pb push_back
+#define eb emplace_back
+#define ft front()
+#define bk back()
+ 
+#define lb lower_bound
+#define ub upper_bound
+template <class T> int lwb(vector<T> &a, const T &b) { return int(lb(all(a), b) - a.begin()); }
+template <class T> int upb(vector<T> &a, const T &b) { return int(ub(all(a), b) - a.begin()); }
+
+const int maxn=1e6+100;
+const int mod=1e9+7;
+const int INF=1e9;
+const ll LLINF=1e18;
+const double EPS = 1e-9;
+const double PI=3.14159265358979323846264338327950288419716939937510582097494459230;
+
+template<class T, class U> istream& operator>>(istream &is, pair<T, U>& p) { is >> p.first >> p.second; return is; }
+template<class T> istream& operator>>(istream& is, vector<T>& vec) { for(auto &x : vec) cin >> x; return is; } 
+template<class T, class U> ostream& operator<<(ostream &os, const pair<T, U>& p) { os << "<" << p.first << "," << p.second << ">"; return os; }
+template<class T> ostream& operator<<(ostream& os, const vector<T>& vec) { for(auto x : vec) os << x << " "; return os; }
+
+template <typename T> bool mycomp(pair<T, T> x, pair<T, T> y) { return x.second < y.second; }
+
+template <typename T>
+T pow2 (T base, T exp) { T result = 1; while (exp > 0) { result = (exp % 2) ? result * base : result; base *= base; exp /= 2; } return result; }
+
+struct NS {
+    int idx, type;
+};
+
+int main() {
+    lg();
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    cout << fixed << setprecision(12);
+    
+    int tcs = 1;
+    cin >> tcs;
+    for(int tc = 0; tc < tcs; ++tc) 
+    {
+        int n;
+        cin >> n;
+        vector<int> a(n), b(n);
+        cin >> a;
+        cin >> b;
+        
+        map<pair<int,int>, vector<NS>> mp;
+        unordered_map<int, vector<int>> sg;
+        for (int i = 0; i < n; i++){
+            if(a[i] == b[i]){
+                sg[a[i]].pb(i);
+            }
+            else{
+                if(a[i] < b[i]){
+                    mp[{a[i], b[i]}].pb({i, 0});
+                }
+                else{
+                    mp[{b[i], a[i]}].pb({i, 1});
+                }
+            }
+        }
+        
+        bool ispos = true;
+        vector<pair<int,int>> pairs;
+        int center = -1;
+        for(auto &entry : mp){
+            vector<int> l0, l1;
+            for(auto &elem : entry.s){
+                if(elem.type == 0) l0.pb(elem.idx);
+                else l1.pb(elem.idx);
+            }
+            if(sz(l0) != sz(l1)){
+                ispos = false;
+                break;
+            }
+            for (int i = 0; i < sz(l0); i++){
+                pairs.pb({l0[i], l1[i]});
+            }
+        }
+        
+        int oddcs = 0;
+        for(auto &entry : sg){
+            int cnt = sz(entry.s);
+            if(cnt % 2 == 1){
+                oddcs++;
+            }
+        }
+        
+        if(n % 2 == 0){
+            if(oddcs > 0) ispos = false;
+        }
+        else{
+            if(oddcs != 1) ispos = false;
+        }
+        
+        if(!ispos){
+            d1(-1);
+            continue;
+        }
+        
+        for(auto &entry : sg){
+            auto &vec = entry.s;
+            if(sz(vec) % 2 == 1){
+                if(center == -1){
+                    center = vec.bk;
+                    vec.pop_back();
+                }
+            }
+            for (int i = 0; i < sz(vec); i += 2){
+                pairs.pb({vec[i], vec[i+1]});
+            }
+        }
+        
+        int req = (n % 2 == 0 ? n / 2 : (n - 1) / 2);
+        if(sz(pairs) != req){
+            d1(-1);
+            continue;
+        }
+        
+        vector<int> F(n, -1);
+        for (int i = 0; i < req; i++){
+            F[i] = pairs[i].f;
+            F[n - 1 - i] = pairs[i].s;
+        }
+        
+        if(n % 2 == 1) F[req] = center;
+        vector<int> curr(n), pi(n);
+        for (int i = 0; i < n; i++){
+            curr[i] = i;
+            pi[i] = i;
+        }
+        
+        vector<pair<int,int>> ops;
+        for (int i = 0; i < n; i++){
+            if(curr[i] != F[i]){
+                int j = pi[F[i]];
+                swap(curr[i], curr[j]);
+                pi[curr[i]] = i;
+                pi[curr[j]] = j;
+                ops.pb({i, j});
+            }
+        }
+        
+        d1(sz(ops));
+        for(auto &op : ops){
+            d2(op.f + 1, op.s + 1);
+        }
+    }
+    
+    return 0;
+}

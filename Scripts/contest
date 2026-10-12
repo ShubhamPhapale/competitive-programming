@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Validate input
+if [ "$#" -ne 2 ]; then
+  echo "Usage: ./contest_setup.sh <contest_name> <number_of_problems>"
+  exit 1
+fi
+
+# Extract arguments
+contest_name=$1
+problem_count=$2
+
+# Run the Python script with the provided arguments
+python3 /Users/shubhamsarjeraophapale/Competitive\ Programming/scripts/setup_contest.py "$contest_name" "$problem_count"
