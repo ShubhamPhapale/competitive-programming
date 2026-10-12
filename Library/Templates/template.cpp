@@ -1,6 +1,6 @@
 /**
  *    author:  shubhamphpefy
- *    created: 11.10.2026 22:08:36
+ *    created: ${1:}
 **/
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -11,6 +11,7 @@ using namespace __gnu_pbds;
 
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
 
 #ifdef LOCAL
 #include "debug.h"
@@ -34,13 +35,13 @@ mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
 #define yes cout << "YES" << endl
 #define no cout << "NO" << endl
 
-#define d0(x) cout << (x) << " "
-#define d1(x) cout << (x) << endl
-#define d2(x,y) cout << (x) << " " << (y) << endl
-#define d3(x,y,z) cout << (x) << " " << (y) << " " << (z) << endl
-#define d4(a,b,c,d) cout << (a) << " " << (b) << " " << (c) << " " << (d) << endl
-#define d5(a,b,c,d,e) cout << (a) << " " << (b) << " " << (c) << " " << (d) << " " << (e) << endl
-#define d6(a,b,c,d,e,f) cout << (a) << " " << (b) << " " << (c) << " " << (d) << " " << (e) << " " << (f) << endl
+#define d0(x) cout<<(x)<<" "
+#define d1(x) cout<<(x)<<endl
+#define d2(x,y) cout<<(x)<<" "<<(y)<<endl
+#define d3(x,y,z) cout<<(x)<<" "<<(y)<<" "<<(z)<<endl
+#define d4(a,b,c,d) cout<<(a)<<" "<<(b)<<" "<<(c)<<" "<<(d)<<endl
+#define d5(a,b,c,d,e) cout<<(a)<<" "<<(b)<<" "<<(c)<<" "<<(d)<<" "<<(e)<<endl
+#define d6(a,b,c,d,e,f) cout<<(a)<<" "<<(b)<<" "<<(c)<<" "<<(d)<<" "<<(e)<<" "<<(f)<<endl
 
 #define sz(x) int((x).size())
 #define bg(x) begin(x)
@@ -59,12 +60,12 @@ mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
 template <class T> int lwb(vector<T> &a, const T &b) { return int(lb(all(a), b) - a.begin()); }
 template <class T> int upb(vector<T> &a, const T &b) { return int(ub(all(a), b) - a.begin()); }
 
-const int maxn = 1e6 + 100;
-const int mod = 1e9 + 7;
-const int INF = 1e9;
-const ll LLINF = 1e18;
+const int maxn=1e6+100;
+const int mod=1e9+7;
+const int INF=1e9;
+const ll LLINF=1e18;
 const double EPS = 1e-9;
-const double PI = 3.14159265358979323846264338327950288419716939937510582097494459230;
+const double PI=3.14159265358979323846264338327950288419716939937510582097494459230;
 
 template<class T, class U> istream& operator>>(istream &is, pair<T, U>& p) { is >> p.first >> p.second; return is; }
 template<class T> istream& operator>>(istream& is, vector<T>& vec) { for(auto &x : vec) cin >> x; return is; } 
@@ -74,17 +75,18 @@ template<class T> ostream& operator<<(ostream& os, const vector<T>& vec) { for(a
 template <typename T> bool mycomp(pair<T, T> x, pair<T, T> y) { return x.second < y.second; }
 
 int main() {
-    lg();
-    
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr); // comment out for interactive problems
-    cout << fixed << setprecision(12);
-    
-    int tcs = 1;
-    // cin >> tcs;
-    for (int tc = 0; tc < tcs; ++tc) {
-        
-    }
-    
-    return 0;
+	lg();
+	
+	ios_base::sync_with_stdio(false);
+	cin.tie(nullptr); // comment out for interactive problems
+	cout << fixed << setprecision(12);
+	
+	int tcs = 1;
+	// ${2:}cin >> tcs;
+	for(int tc = 0; tc < tcs; ++tc) 
+	{
+		
+	}
+	
+	return 0;
 }
