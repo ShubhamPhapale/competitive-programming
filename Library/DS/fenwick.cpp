@@ -1,11 +1,10 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 // ----- Fenwick Tree (Binary Indexed Tree) -----
 template <typename T>
 struct Fenwick {
     int n;
-    vector<T> tree;
+    std::vector<T> tree;
 
     Fenwick(int n) : n(n), tree(n + 1, 0) {}
 

@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 // ----- Modular Arithmetic & Combinatorics -----
 template <int MOD>
@@ -15,14 +14,14 @@ struct ModInt {
     ModInt& operator+=(const ModInt &o) { return *this = *this + o; }
     ModInt& operator-=(const ModInt &o) { return *this = *this - o; }
     ModInt& operator*=(const ModInt &o) { return *this = *this * o; }
-    friend ostream& operator<<(ostream &os, const ModInt &m) { return os << m.val; }
-    friend istream& operator>>(istream &is, ModInt &m) { long long v; is >> v; m = ModInt(v); return is; }
+    friend std::ostream& operator<<(std::ostream &os, const ModInt &m) { return os << m.val; }
+    friend std::istream& operator>>(std::istream &is, ModInt &m) { long long v; is >> v; m = ModInt(v); return is; }
 };
 
 const int MOD = 1e9 + 7;
 using mint = ModInt<MOD>;
 
-vector<mint> fact, inv_fact;
+std::vector<mint> fact, inv_fact;
 void precomp_fact(int n) {
     fact.resize(n + 1);
     inv_fact.resize(n + 1);

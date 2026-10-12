@@ -1,0 +1,43 @@
+<snippet>
+	<content><![CDATA[
+#include <bits/stdc++.h>
+
+#define ll long long
+const int MOD = 1e9 + 7;
+
+int n, k;
+int dp[1001][1001];
+
+int rec(int level, int left)
+{
+	//pruning
+	${1:}
+	//basecase
+	if(level == n)
+	{
+		return 0;
+	}
+	
+	//cache check
+	if(dp[level][left] != -1)
+	{
+		return dp[level][left];
+	}
+	
+	//compute
+	int ans;
+	
+	//save and return
+	return dp[level][left] = ans;
+}
+
+void solve() 
+{
+	std::cin >> n >> k;
+	memset(dp, -1, sizeof(dp));
+	
+	std::cout << rec(0, k) << '\n';
+}
+]]></content>
+	<tabTrigger>dp1</tabTrigger>
+</snippet>

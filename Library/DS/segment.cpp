@@ -1,18 +1,17 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 // ----- Segment Tree (Point Update, Range Query) -----
 template <typename T>
 struct SegTree {
     int n;
-    vector<T> tree;
+    std::vector<T> tree;
     T identity;
 
     T merge(T left, T right) {
-        return left + right; // Customize: min(left, right), max, gcd, etc.
+        return left + right; // Customize: std::min(left, right), std::max, std::gcd, etc.
     }
 
-    SegTree(vector<T> v, T id) {
+    SegTree(std::vector<T> v, T id) {
         identity = id;
         n = int(v.size());
         while (__builtin_popcount(n) != 1) {

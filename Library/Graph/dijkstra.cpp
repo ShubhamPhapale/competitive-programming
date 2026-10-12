@@ -1,13 +1,12 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 // ----- Dijkstra's Algorithm (Single Source Shortest Path with Path Reconstruction) -----
 template <typename T = long long>
 struct Dijkstra {
     int n;
-    vector<vector<pair<int, T>>> adj;
-    vector<T> dist;
-    vector<int> par;
+    std::vector<std::vector<std::pair<int, T>>> adj;
+    std::vector<T> dist;
+    std::vector<int> par;
     const T INF_VAL;
 
     Dijkstra(int n, T inf_val = 1e18) : n(n), INF_VAL(inf_val) {
@@ -24,7 +23,7 @@ struct Dijkstra {
     void run(int src) {
         dist.assign(n + 1, INF_VAL);
         par.assign(n + 1, -1);
-        priority_queue<pair<T, int>, vector<pair<T, int>>, greater<pair<T, int>>> pq;
+        std::priority_queue<std::pair<T, int>, std::vector<std::pair<T, int>>, std::greater<std::pair<T, int>>> pq;
 
         dist[src] = 0;
         pq.push({0, src});
@@ -47,11 +46,11 @@ struct Dijkstra {
         }
     }
 
-    vector<int> restore_path(int target) {
+    std::vector<int> restore_path(int target) {
         if (dist[target] == INF_VAL) return {};
-        vector<int> path;
+        std::vector<int> path;
         for (int v = target; v != -1; v = par[v]) path.push_back(v);
-        reverse(path.begin(), path.end());
+        std::reverse(path.begin(), path.end());
         return path;
     }
 };

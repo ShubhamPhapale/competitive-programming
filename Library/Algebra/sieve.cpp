@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 // ----- Smallest Prime Factor (SPF) Sieve & Factorization -----
-vector<int> spf;
+std::vector<int> spf;
 
 void sieve(int n) {
     spf.assign(n + 1, 0);
@@ -16,8 +15,8 @@ void sieve(int n) {
 }
 
 // O(log x) factorization using precomputed SPF
-vector<pair<int, int>> get_factors(int x) {
-    vector<pair<int, int>> factors;
+std::vector<std::pair<int, int>> get_factors(int x) {
+    std::vector<std::pair<int, int>> factors;
     while (x > 1) {
         int p = spf[x], count = 0;
         while (x % p == 0) {

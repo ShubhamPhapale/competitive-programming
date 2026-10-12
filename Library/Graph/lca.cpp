@@ -1,14 +1,13 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 // ----- Lowest Common Ancestor (Binary Lifting) -----
 template <typename T = long long>
 struct LCA {
     int n, l, timer;
-    vector<vector<pair<int, T>>> adj;
-    vector<int> tin, tout, depth;
-    vector<vector<int>> up;
-    vector<T> dist;
+    std::vector<std::vector<std::pair<int, T>>> adj;
+    std::vector<int> tin, tout, depth;
+    std::vector<std::vector<int>> up;
+    std::vector<T> dist;
 
     LCA(int n) : n(n), timer(0) {
         adj.resize(n + 1);
@@ -16,8 +15,8 @@ struct LCA {
         tout.resize(n + 1);
         depth.assign(n + 1, 0);
         dist.assign(n + 1, 0);
-        l = ceil(log2(n + 1));
-        up.assign(n + 1, vector<int>(l + 1));
+        l = std::ceil(std::log2(n + 1));
+        up.assign(n + 1, std::vector<int>(l + 1));
     }
 
     void add_edge(int u, int v, T w = 1) {

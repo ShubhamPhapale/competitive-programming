@@ -89,6 +89,12 @@ int main() {
         std::cin >> n;
         
         std::cout << n << '\n';
+        
+        std::vector<int> a(n);
+        std::cin >> a;
+        
+        std::sort(a.begin(), a.end());
+        std::cout << a << '\n';
     }
     
     return 0;

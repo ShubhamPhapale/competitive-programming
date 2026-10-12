@@ -1,15 +1,14 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 // ----- Disjoint Set Union (DSU / Union-Find) -----
 template <typename T = int>
 struct DSU {
-    vector<T> par;
-    vector<vector<T>> members;
+    std::vector<T> par;
+    std::vector<std::vector<T>> members;
 
     DSU(T n) {
         par.resize(n + 1);
-        iota(par.begin(), par.end(), 0);
+        std::iota(par.begin(), par.end(), 0);
         members.resize(n + 1);
         for (T i = 0; i <= n; i++) members[i] = {i};
     }
@@ -22,7 +21,7 @@ struct DSU {
         x = find(x), y = find(y);
         if (x == y) return false;
 
-        if (members[x].size() < members[y].size()) swap(x, y);
+        if (members[x].size() < members[y].size()) std::swap(x, y);
         par[y] = x;
         members[x].insert(members[x].end(), members[y].begin(), members[y].end());
         members[y].clear();
@@ -34,14 +33,14 @@ struct DSU {
 // ----- DSU with Rollback Support -----
 template <typename T = int>
 struct DSURollback {
-    vector<T> par, siz;
+    std::vector<T> par, siz;
     T components;
-    vector<pair<T, T>> history;
+    std::vector<std::pair<T, T>> history;
 
     DSURollback(T n) {
         components = n;
         par.resize(n + 1);
-        iota(par.begin(), par.end(), 0);
+        std::iota(par.begin(), par.end(), 0);
         siz.assign(n + 1, 1);
     }
 
@@ -56,7 +55,7 @@ struct DSURollback {
             return false;
         }
 
-        if (siz[x] < siz[y]) swap(x, y);
+        if (siz[x] < siz[y]) std::swap(x, y);
         par[y] = x;
         siz[x] += siz[y];
         components--;

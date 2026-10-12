@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+if (!used[u]) {
+    std::cout << "No path!\n";
+} else {
+    std::vector<int> path;
+    for (int v = u; v != -1; v = p[v])
+        path.push_back(v);
+    std::reverse(path.begin(), path.end());
+    std::cout << "Path: ";
+    for (int v : path)
+        std::cout << v << " ";
+    std::cout << '\n';
+}
+]]></content>
+	<tabTrigger>bfspath</tabTrigger>
+</snippet>
