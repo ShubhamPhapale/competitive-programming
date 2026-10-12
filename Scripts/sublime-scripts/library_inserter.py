@@ -14,6 +14,11 @@ ALIASES = {
     "maxflow": ["dinic"],
     "convexhulltrick": ["cht"],
     "dsu": ["dsurollback", "rollback"],
+    "apsp": ["floyd", "floydwarshall"],
+    "z": ["zalgorithm"],
+    "suffixautomaton": ["sam"],
+    "bitmask": ["tsp"],
+    "fft": ["poly", "polynomial"],
 }
 
 def clean_code(raw_code, is_template=False):
