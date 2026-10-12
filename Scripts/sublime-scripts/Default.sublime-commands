@@ -1,0 +1,11 @@
+[
+    {
+        "caption": "Terminus: Open Default Shell in Tab (View)",
+        "command": "terminus_open",
+        "args": {"show_in_panel": true}
+    },
+    {
+        "caption": "Library: Insert Algorithm / Snippet",
+        "command": "insert_library_algorithm"
+    }
+]

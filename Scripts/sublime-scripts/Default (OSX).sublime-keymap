@@ -1,0 +1,14 @@
+[
+    { "keys": ["ctrl+shift+t"], "command": "insert_timestamp"},
+    
+    //Open a terminal tab at current file directory
+    {
+        "keys": ["ctrl+alt+t"], "command": "terminus_open", "args": {
+            "show_in_panel": true,
+            "cwd": "${file_path:${folder}}"
+        }
+    },
+
+    // Insert algorithm from Library
+    { "keys": ["ctrl+shift+l"], "command": "insert_library_algorithm" }
+]
