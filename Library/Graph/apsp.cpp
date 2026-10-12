@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- Floyd–Warshall Algorithm (All-Pairs Shortest Paths) -----
 vector<vector<long long>> floydWarshall(int n, const vector<vector<long long>>& graph) {
     const long long INF = 1e18;

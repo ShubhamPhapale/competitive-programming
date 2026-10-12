@@ -1,40 +1,38 @@
-// ----- Fast Modular Exponentiation -----
-long long modExp(long long base, long long exp, long long mod) {
-    long long result = 1 % mod;
-    base %= mod;
-    while(exp > 0){
-        if(exp & 1)
-            result = (result * base) % mod;
-        base = (base * base) % mod;
-        exp >>= 1;
-    }
-    return result;
-}
- 
-// ----- Extended Euclidean Algorithm -----
-tuple<long long, long long, long long> extendedEuclid(long long a, long long b) {
-    if(b == 0) return {a, 1, 0};
-    auto [g, x1, y1] = extendedEuclid(b, a % b);
-    return {g, y1, x1 - (a / b) * y1};
-}
- 
-// ----- Modular Inverse -----
-long long modInverse(long long a, long long mod) {
-    auto [g, x, y] = extendedEuclid(a, mod);
-    if(g != 1) return -1; // inverse doesn't exist
-    return (x % mod + mod) % mod;
+#include <bits/stdc++.h>
+using namespace std;
+
+// ----- Modular Arithmetic & Combinatorics -----
+template <int MOD>
+struct ModInt {
+    long long val;
+    ModInt(long long v = 0) { val = v % MOD; if (val < 0) val += MOD; }
+    ModInt operator+(const ModInt &o) const { return ModInt(val + o.val); }
+    ModInt operator-(const ModInt &o) const { return ModInt(val - o.val); }
+    ModInt operator*(const ModInt &o) const { return ModInt(val * o.val % MOD); }
+    ModInt pow(long long e) const { ModInt res(1), b(*this); while (e) { if (e & 1) res = res * b; b = b * b; e >>= 1; } return res; }
+    ModInt inv() const { return pow(MOD - 2); }
+    ModInt operator/(const ModInt &o) const { return *this * o.inv(); }
+    ModInt& operator+=(const ModInt &o) { return *this = *this + o; }
+    ModInt& operator-=(const ModInt &o) { return *this = *this - o; }
+    ModInt& operator*=(const ModInt &o) { return *this = *this * o; }
+    friend ostream& operator<<(ostream &os, const ModInt &m) { return os << m.val; }
+    friend istream& operator>>(istream &is, ModInt &m) { long long v; is >> v; m = ModInt(v); return is; }
+};
+
+const int MOD = 1e9 + 7;
+using mint = ModInt<MOD>;
+
+vector<mint> fact, inv_fact;
+void precomp_fact(int n) {
+    fact.resize(n + 1);
+    inv_fact.resize(n + 1);
+    fact[0] = 1;
+    for (int i = 1; i <= n; i++) fact[i] = fact[i - 1] * i;
+    inv_fact[n] = fact[n].inv();
+    for (int i = n; i > 0; i--) inv_fact[i - 1] = inv_fact[i] * i;
 }
 
-// ----- Chinese Remainder Theorem (CRT) -----
-long long crt(const vector<long long>& remainders, const vector<long long>& mods) {
-    long long x = 0, M = 1;
-    for(auto mod: mods)
-        M *= mod;
-    for (int i = 0; i < mods.size(); i++){
-        long long m_i = mods[i];
-        long long M_i = M / m_i;
-        long long inv = modInverse(M_i, m_i);
-        x = (x + remainders[i] * inv % M * M_i % M) % M;
-    }
-    return (x + M) % M;
+mint nCr(int n, int r) {
+    if (r < 0 || r > n) return mint(0);
+    return fact[n] * inv_fact[r] * inv_fact[n - r];
 }

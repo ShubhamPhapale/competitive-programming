@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- Example: Bitmask DP for TSP (n <= 20) -----
 const int INF = 1e9;
 int tsp(int n, const vector<vector<int>> &dist) {

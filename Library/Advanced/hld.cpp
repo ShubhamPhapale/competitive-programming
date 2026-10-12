@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- Heavy-Light Decomposition (HLD) Skeleton -----
 // (Assumes a tree with 0-indexed nodes; further functions such as query/update are built atop a segment tree.)
 struct HLD {

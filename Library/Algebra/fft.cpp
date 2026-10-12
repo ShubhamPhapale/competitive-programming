@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- Fast Fourier Transform (FFT) & Polynomial Multiplication -----
 typedef complex<double> cd;
 const double PI = acos(-1);

@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- Z-Algorithm -----
 vector<int> computeZ(const string &s) {
     int n = s.size();

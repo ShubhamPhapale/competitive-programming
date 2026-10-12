@@ -1,43 +1,54 @@
-// ----- Segment Tree with Lazy Propagation (Range Updates & Queries) -----
-struct SegmentTree {
+#include <bits/stdc++.h>
+using namespace std;
+
+// ----- Segment Tree (Point Update, Range Query) -----
+template <typename T>
+struct SegTree {
     int n;
-    vector<long long> tree, lazy;
-    
-    SegmentTree(int n) : n(n) {
-        tree.assign(4*n, 0);
-        lazy.assign(4*n, 0);
+    vector<T> tree;
+    T identity;
+
+    T merge(T left, T right) {
+        return left + right; // Customize: min(left, right), max, gcd, etc.
     }
-    
-    void push(int node, int l, int r) {
-        if(lazy[node] != 0){
-            tree[node] += lazy[node] * (r-l+1);
-            if(l != r){
-                lazy[node*2] += lazy[node];
-                lazy[node*2+1] += lazy[node];
-            }
-            lazy[node] = 0;
+
+    SegTree(vector<T> v, T id) {
+        identity = id;
+        n = int(v.size());
+        while (__builtin_popcount(n) != 1) {
+            v.push_back(identity);
+            n++;
         }
+        
+        tree.assign(2 * n, identity);
+        
+        for (int i = 0; i < n; i++) tree[n + i] = v[i];
+        for (int i = n - 1; i > 0; i--) tree[i] = merge(tree[2 * i], tree[2 * i + 1]);
     }
-    
-    void update(int node, int l, int r, int ql, int qr, long long val) {
-        push(node, l, r);
-        if(r < ql || l > qr) return;
-        if(ql <= l && r <= qr) {
-            lazy[node] += val;
-            push(node, l, r);
-            return;
+
+    T segtree(int node, int node_low, int node_high, int query_low, int query_high, T value, bool is_update) {
+        if (query_low <= node_low && node_high <= query_high) {
+            if (is_update) tree[node] = value;
+            return tree[node];
         }
-        int mid = (l + r) / 2;
-        update(node*2, l, mid, ql, qr, val);
-        update(node*2+1, mid+1, r, ql, qr, val);
-        tree[node] = tree[node*2] + tree[node*2+1];
+        if (node_high < query_low || query_high < node_low) return identity;
+        
+        int last_in_left = (node_low + node_high) / 2;
+        
+        T ans = merge(
+            segtree(2 * node, node_low, last_in_left, query_low, query_high, value, is_update),
+            segtree(2 * node + 1, last_in_left + 1, node_high, query_low, query_high, value, is_update)
+        );
+        
+        tree[node] = merge(tree[2 * node], tree[2 * node + 1]);
+        return ans;
     }
-    
-    long long query(int node, int l, int r, int ql, int qr) {
-        push(node, l, r);
-        if(r < ql || l > qr) return 0;
-        if(ql <= l && r <= qr) return tree[node];
-        int mid = (l + r) / 2;
-        return query(node*2, l, mid, ql, qr) + query(node*2+1, mid+1, r, ql, qr);
+
+    void update(int i, T value) {
+        segtree(1, 0, n - 1, i, i, value, true);
+    }
+
+    T query(int low, int high) {
+        return segtree(1, 0, n - 1, low, high, identity, false);
     }
 };

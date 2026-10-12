@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- Suffix Automaton (for substring queries) -----
 struct SuffixAutomaton {
     struct State {

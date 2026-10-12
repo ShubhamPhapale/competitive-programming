@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- KMP Algorithm (Prefix Function) -----
 vector<int> computePrefix(const string &s) {
     int n = s.size();

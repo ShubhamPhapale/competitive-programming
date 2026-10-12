@@ -1,3 +1,6 @@
+#include <bits/stdc++.h>
+using namespace std;
+
 // ----- Convex Hull Trick (for DP optimization; assumes lines added in order) -----
 struct Line {
     long long m, b; // y = m*x + b
