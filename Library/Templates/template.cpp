@@ -60,12 +60,13 @@ mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
 template <class T> int lwb(vector<T> &a, const T &b) { return int(lb(all(a), b) - a.begin()); }
 template <class T> int upb(vector<T> &a, const T &b) { return int(ub(all(a), b) - a.begin()); }
 
-const int maxn=1e6+100;
-const int mod=1e9+7;
-const int INF=1e9;
-const ll LLINF=1e18;
+const int MAXN = 1e6 + 100;
+const int MOD = 1e9 + 7;
+const int MOD2 = 998244353;
+const int INF = 1e9;
+const ll LLINF = 1e18;
 const double EPS = 1e-9;
-const double PI=3.14159265358979323846264338327950288419716939937510582097494459230;
+const double PI = 3.14159265358979323846264338327950288419716939937510582097494459230;
 
 template<class T, class U> istream& operator>>(istream &is, pair<T, U>& p) { is >> p.first >> p.second; return is; }
 template<class T> istream& operator>>(istream& is, vector<T>& vec) { for(auto &x : vec) cin >> x; return is; } 
