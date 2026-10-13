@@ -40,11 +40,11 @@ int main() {
     std::cin >> tcs;
     for(int tc = 0; tc < tcs; ++tc) 
     {
-        int a, b, c, m;
+        ll a, b, c, m;
         std::cin >> a >> b >> c >> m;
         
-        int gcdab = std::gcd(a, b), gcdbc = std::gcd(b, c), gcdca = std::gcd(c, a);
-        int gcdabc = std::gcd(gcdab, gcdbc);
+        ll gcdab = std::gcd(a, b), gcdbc = std::gcd(b, c), gcdca = std::gcd(c, a);
+        ll gcdabc = std::gcd(gcdab, gcdbc);
         
         ll abc = m / gcdabc, ab = m / gcdab, bc = m / gcdbc, ca = m / gcdca;
         a = m / a, b = m / b, c = m / c;
@@ -52,7 +52,7 @@ int main() {
         ll ansa = 0, ansb = 0, ansc = 0;
         
         ll all3 = a + b + c - ab - bc - ca + abc;
-        ll a2 = ab + ca - abc, b2 = ab + bc - abc, c2 = bc + ca - abc;
+        ll a2 = a - ab - ca, b2 = b - ab - bc, c2 = c - bc - ca;
         
         ansa = all3 * 2 + a2 * 3 + a * 6;
         ansb = all3 * 2 + b2 * 3 + b * 6;

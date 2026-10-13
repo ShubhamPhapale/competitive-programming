@@ -20,6 +20,22 @@ ITEMS = [
     ("cin", "std::cin >> ${1:x};", sublime.KIND_VARIABLE, "std::", "Input stream"),
     ("cout", "std::cout << ${1:x} << '\\n';", sublime.KIND_VARIABLE, "std::", "Output stream"),
     ("cerr", "std::cerr << ${1:x} << '\\n';", sublime.KIND_VARIABLE, "std::", "Error stream"),
+    ("sort", "std::sort(${1:a}.begin(), ${1:a}.end());", sublime.KIND_FUNCTION, "std::", "Ascending sort"),
+    ("rsort", "std::sort(${1:a}.rbegin(), ${1:a}.rend());", sublime.KIND_FUNCTION, "std::", "Descending sort"),
+    ("reverse", "std::reverse(${1:a}.begin(), ${1:a}.end());", sublime.KIND_FUNCTION, "std::", "std::reverse"),
+    ("lower_bound", "std::lower_bound(${1:a}.begin(), ${1:a}.end(), ${2:val})", sublime.KIND_FUNCTION, "std::", "Binary search lower bound"),
+    ("upper_bound", "std::upper_bound(${1:a}.begin(), ${1:a}.end(), ${2:val})", sublime.KIND_FUNCTION, "std::", "Binary search upper bound"),
+    ("unique", "${1:a}.erase(std::unique(${1:a}.begin(), ${1:a}.end()), ${1:a}.end());", sublime.KIND_FUNCTION, "std::", "Remove consecutive duplicates"),
+    ("accumulate", "std::accumulate(${1:a}.begin(), ${1:a}.end(), ${2:0LL})", sublime.KIND_FUNCTION, "std::", "Range sum"),
+    ("min", "std::min(${1:a}, ${2:b})", sublime.KIND_FUNCTION, "std::", "std::min"),
+    ("max", "std::max(${1:a}, ${2:b})", sublime.KIND_FUNCTION, "std::", "std::max"),
+    ("swap", "std::swap(${1:a}, ${2:b});", sublime.KIND_FUNCTION, "std::", "std::swap"),
+    ("gcd", "std::gcd(${1:a}, ${2:b})", sublime.KIND_FUNCTION, "std::", "Greatest common divisor"),
+    ("lcm", "std::lcm(${1:a}, ${2:b})", sublime.KIND_FUNCTION, "std::", "Least common multiple"),
+    ("abs", "std::abs(${1:x})", sublime.KIND_FUNCTION, "std::", "std::abs"),
+    ("sqrt", "std::sqrt(${1:x})", sublime.KIND_FUNCTION, "std::", "std::sqrt"),
+    ("ceil", "std::ceil(${1:x})", sublime.KIND_FUNCTION, "std::", "Ceiling"),
+    ("floor", "std::floor(${1:x})", sublime.KIND_FUNCTION, "std::", "Floor"),
     ("d0", "std::cout << ${1:x} << ' ';", sublime.KIND_SNIPPET, "io", "Print with space"),
     ("d1", "std::cout << ${1:x} << '\\n';", sublime.KIND_SNIPPET, "io", "Print 1 var with newline"),
     ("d2", "std::cout << ${1:a} << ' ' << ${2:b} << '\\n';", sublime.KIND_SNIPPET, "io", "Print 2 vars with newline"),
@@ -49,12 +65,28 @@ class StdCompleterListener(sublime_plugin.EventListener):
         start_pt = max(0, pt - prefix_len - 5)
         before_text = view.substr(sublime.Region(start_pt, pt - prefix_len))
         has_std_prefix = before_text.endswith("std::")
+        is_member_call = before_text.endswith(".") or before_text.endswith("->")
 
         prefix_lower = prefix.lower()
         completions = []
 
         for trig, snip, kind, ann, details in ITEMS:
-            if has_std_prefix:
+            if is_member_call:
+                if trig != "pb":
+                    continue
+                if prefix_lower and not trig.lower().startswith(prefix_lower):
+                    continue
+                completions.append(
+                    sublime.CompletionItem(
+                        trigger=trig,
+                        annotation=ann,
+                        details=details,
+                        completion=snip,
+                        completion_format=sublime.COMPLETION_FORMAT_SNIPPET,
+                        kind=kind
+                    )
+                )
+            elif has_std_prefix:
                 if not (snip.startswith("std::") or ann == "std::"):
                     continue
                 if prefix_lower and not trig.lower().startswith(prefix_lower):
