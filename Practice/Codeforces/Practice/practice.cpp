@@ -1,6 +1,6 @@
 /**
  *    author:  shubhamphpefy
- *    created: 13.10.2026 22:14:16
+ *    created: 13.10.2026 22:50:46
 **/
 #include <bits/stdc++.h>
 
@@ -37,10 +37,28 @@ int main() {
     std::cout << std::fixed << std::setprecision(12);
     
     int tcs = 1;
-    // std::cin >> tcs;
+    std::cin >> tcs;
     for(int tc = 0; tc < tcs; ++tc) 
     {
+        int a, b, c, m;
+        std::cin >> a >> b >> c >> m;
         
+        int gcdab = std::gcd(a, b), gcdbc = std::gcd(b, c), gcdca = std::gcd(c, a);
+        int gcdabc = std::gcd(gcdab, gcdbc);
+        
+        ll abc = m / gcdabc, ab = m / gcdab, bc = m / gcdbc, ca = m / gcdca;
+        a = m / a, b = m / b, c = m / c;
+        
+        ll ansa = 0, ansb = 0, ansc = 0;
+        
+        ll all3 = a + b + c - ab - bc - ca + abc;
+        ll a2 = ab + ca - abc, b2 = ab + bc - abc, c2 = bc + ca - abc;
+        
+        ansa = all3 * 2 + a2 * 3 + a * 6;
+        ansb = all3 * 2 + b2 * 3 + b * 6;
+        ansc = all3 * 2 + c2 * 3 + c * 6;
+        
+        std::cout << ansa << " " << ansb << " " << ansc << '\n';
     }
     
     return 0;
