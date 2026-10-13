@@ -12,27 +12,23 @@
 #define lg(...) 42
 #endif
 
-// Random number generator
 std::mt19937 rnd(std::chrono::steady_clock::now().time_since_epoch().count());
 #define uid(a, b) std::uniform_int_distribution<int>(a, b)(rnd)
 
 using ll = long long;
 using ld = long double;
 
-// Common constants
 constexpr int MOD = 1e9 + 7;
 constexpr int MOD2 = 998244353;
 constexpr int INF = 1e9;
 constexpr ll LLINF = 1e18;
 constexpr double EPS = 1e-9;
 
-// Stream I/O helpers
 template<class T, class U> std::istream& operator>>(std::istream &is, std::pair<T, U>& p) { is >> p.first >> p.second; return is; }
 template<class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec) { for(auto &x : vec) is >> x; return is; } 
 template<class T, class U> std::ostream& operator<<(std::ostream &os, const std::pair<T, U>& p) { os << "<" << p.first << "," << p.second << ">"; return os; }
 template<class T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) { for(auto x : vec) os << x << " "; return os; }
 
-// Index-based binary search bounds
 template <class T> int lwb(const std::vector<T> &a, const T &b) { return int(std::lower_bound(a.begin(), a.end(), b) - a.begin()); }
 template <class T> int upb(const std::vector<T> &a, const T &b) { return int(std::upper_bound(a.begin(), a.end(), b) - a.begin()); }
 
