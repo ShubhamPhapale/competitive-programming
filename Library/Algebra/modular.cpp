@@ -1,15 +1,15 @@
 #include <bits/stdc++.h>
 
 // ----- Modular Arithmetic & Combinatorics -----
-template <int MOD>
+template <int Mod = 1'000'000'007>
 struct ModInt {
     long long val;
-    ModInt(long long v = 0) { val = v % MOD; if (val < 0) val += MOD; }
+    ModInt(long long v = 0) { val = v % Mod; if (val < 0) val += Mod; }
     ModInt operator+(const ModInt &o) const { return ModInt(val + o.val); }
     ModInt operator-(const ModInt &o) const { return ModInt(val - o.val); }
-    ModInt operator*(const ModInt &o) const { return ModInt(val * o.val % MOD); }
+    ModInt operator*(const ModInt &o) const { return ModInt(val * o.val % Mod); }
     ModInt pow(long long e) const { ModInt res(1), b(*this); while (e) { if (e & 1) res = res * b; b = b * b; e >>= 1; } return res; }
-    ModInt inv() const { return pow(MOD - 2); }
+    ModInt inv() const { return pow(Mod - 2); }
     ModInt operator/(const ModInt &o) const { return *this * o.inv(); }
     ModInt& operator+=(const ModInt &o) { return *this = *this + o; }
     ModInt& operator-=(const ModInt &o) { return *this = *this - o; }
@@ -18,8 +18,7 @@ struct ModInt {
     friend std::istream& operator>>(std::istream &is, ModInt &m) { long long v; is >> v; m = ModInt(v); return is; }
 };
 
-const int MOD = 1e9 + 7;
-using mint = ModInt<MOD>;
+using mint = ModInt<1'000'000'007>;
 
 std::vector<mint> fact, inv_fact;
 void precomp_fact(int n) {
