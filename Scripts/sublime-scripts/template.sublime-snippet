@@ -31,9 +31,6 @@ template<class T> std::istream& operator>>(std::istream& is, std::vector<T>& vec
 template<class T, class U> std::ostream& operator<<(std::ostream &os, const std::pair<T, U>& p) { os << "<" << p.first << "," << p.second << ">"; return os; }
 template<class T> std::ostream& operator<<(std::ostream& os, const std::vector<T>& vec) { for(auto x : vec) os << x << " "; return os; }
 
-template <class T> int lwb(const std::vector<T> &a, const T &b) { return int(std::lower_bound(a.begin(), a.end(), b) - a.begin()); }
-template <class T> int upb(const std::vector<T> &a, const T &b) { return int(std::upper_bound(a.begin(), a.end(), b) - a.begin()); }
-
 int main() {
 	lg();
 	
